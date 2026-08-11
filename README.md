@@ -5,7 +5,7 @@ I built this project to demonstrate the deployment, configuration, and automatio
 
 <br />
 <br />
-<img width="651" height="701" alt="FinalDia drawio" src="https://github.com/user-attachments/assets/69aafc25-3408-4523-8e02-39a64da012aa" />
+<img width="842" height="792" alt="FinaleSIEMDiagram" src="https://github.com/user-attachments/assets/1ce2cd02-3da1-4249-8d7c-4e67449f8c2d" />
 
 <br />
 <br />
