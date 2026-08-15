@@ -103,7 +103,7 @@ The next phase was to head over to Microsoft Sentinel and create a Watchlist usi
 <br />
 <h2></h2>
 
-The following picture showed the addition of the Watchlist configuration in my log repository using `_GetWatchlist(“GeographicIP”)`. With this setup, I was able to see the locations of the attackers.
+The following picture showed the addition of the Watchlist configuration in my log repository using `_GetWatchlist("GeographicIP")`. With this setup, I was able to see the locations of the attackers.
 
 <img width="2560" height="1440" alt="9th" src="https://github.com/user-attachments/assets/aa742c6b-3e34-4556-b81c-2283a20ee4eb" />
 <br />
@@ -131,7 +131,7 @@ Subsequently, I provisioned another virtual machine (`DcCorporate`) using Window
 <b>Before:</b> Directly following the deployment of the DC virtual machine, I installed Active Directory Domain Services (AD DS) and promoted the VM to a domain controller.
 
 <img width="2560" height="1440" alt="12th" src="https://github.com/user-attachments/assets/fcd9214a-9145-46ff-83d9-db6e2b58d17b" />
-<b>After:</b> I then provisioned a user in an Organizational Unit to later log into `Corporate-US-Net`, replicating a real-world user and honeypot environment at the same time. 
+<b>After:</b> I then provisioned a user in an Organizational Unit to later log into (`Corporate-US-Net`), replicating a real-world user and honeypot environment at the same time. 
 <br />
 <br />
 <h2></h2>
