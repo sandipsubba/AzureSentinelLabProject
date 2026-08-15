@@ -1,7 +1,7 @@
-<h1>Active Directory Project</h1>
+<h1>Security Information and Event Management Project</h1>
 
 <h2>Description</h2>
-I built this project to demonstrate the deployment, configuration, and automation of an enterprise-modeled Active Directory infrastructure within a fully isolated virtual environment. Using Windows Server 2022 and Windows 11, I established a fully operational Domain Controller managing network routing via RAS/NAT, automated IP addressing through custom DHCP scopes, and centralized identity management. To optimize administrative workflows, I created custom PowerShell scripts to automate bulk user creation and provide real-time, interactive account auditing and incident remediation.
+This project demonstrates end-to-end Security Information and Event Management (SIEM) workflows using Microsoft Sentinel, covering threat detection, geographic mapping, and incident containment. The lab environment consisted of a Windows honeypot machine joined to an Active Directory domain controller to replicate real-world enterprise infrastructure. To simulate an attack, I used a remote Ubuntu VM running Hydra to launch an RDP brute-force attack, generating multiple Event ID 4625 (failed logon) entries. Sentinel ingested the telemetry, geolocated the attacker’s IP to Canada East, and triggered an analytics alert on the target account. Once the incident was confirmed, I contained the threat by adding a Network Security Group (NSG) rule to block the attacker’s IP address.
 
 <br />
 <br />
