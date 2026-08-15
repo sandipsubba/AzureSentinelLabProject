@@ -23,7 +23,8 @@ I built this project to demonstrate the deployment, configuration, and automatio
 <h2>Program walk-through:</h2>
 
 <p align="left">
-<b>Windows Honeypot/Client Deployment</b>
+ 
+### Windows Honeypot/Client Deployment
  
 <b>Resource Group:</b> The first part of setting up the environment was creating a resource group (`SIEM-LAB-SOC`) in East US 2 to organize and manage all of our related VMs and applications together in one place. <br/>
 <b>Virtual Network:</b> The next stage was creating a virtual network (`VNET-SIEM-SOC`) in East US 2 and using the `SIEM-LAB-SOC` resource group so that our VMs could access the internet and connect with each other. <br/>
@@ -34,7 +35,7 @@ I built this project to demonstrate the deployment, configuration, and automatio
 <br />
 <h2></h2>
 
-<b>Network Security Group</b>
+### Network Security Group
 
 <b>Inbound Security Rules:</b> Following the deployment of the virtual machine, the next step was to open it to the internet, allowing all traffic through the NSG to the virtual machine (`Corporate-US-Net`). The asterisk simply means all ports. The rule is named “Danger_Zone” due to the fact that all the ports are open to the VM, which is not ideal in most scenarios.
 
@@ -43,7 +44,7 @@ I built this project to demonstrate the deployment, configuration, and automatio
 <br />
 <h2></h2>
 
-<b>VM Firewall</b>
+### VM Firewall
 
 The next step was to log into the virtual machine and turn off all three firewall profiles (Domain, Private, Public), removing any OS-level filtering on top of the NSG already allowing all traffic in.
 
@@ -52,12 +53,13 @@ The next step was to log into the virtual machine and turn off all three firewal
 <br />
 <h2></h2>
 
-<b>Honeypot/Client Test</b>
+### Honeypot/Client Test
 
 The goal of this step was to confirm the virtual machine was reachable over the internet, testing the connection from my local machine. `TcpTestSucceeded` returned `True`, confirming port 3389 was open and reachable – meaning any attacker scanning the internet would be able to reach it too.
 
 <img width="2560" height="1440" alt="4th blanked" src="https://github.com/user-attachments/assets/d572eec1-9f6a-4c1d-957b-ed575da8c8e1" />
-<b>Pre-SIEM Deployment</b>
+
+### Pre-SIEM Deployment
 
 <b>Log Analytics Workspace (LAW):</b> Following this step, it was crucial to create a Log Analytics Workspace to store and collect data from the virtual machine. <br/>
 <b>SIEM:</b> Directly following, the next step was to connect the Log Analytics Workspace to Microsoft Sentinel.
@@ -65,7 +67,7 @@ The goal of this step was to confirm the virtual machine was reachable over the 
 <br />
 <h2></h2>
 
-<b>Data Connector Setup</b>
+### Data Connector Setup
 
 The next step was to go to Content Hub in Microsoft Sentinel and install “Windows Security Events”. This gives Sentinel tools like the data connector to collect Windows event logs (authentication attempts) from `Corporate-US-Net`.
 
@@ -74,7 +76,7 @@ The next step was to go to Content Hub in Microsoft Sentinel and install “Wind
 <br />
 <h2></h2>
 
-<b>Directly following the last step, the next steps were important for deploying logs:</b>
+### Directly following the last step, the next steps were important for deploying logs:
 1. Check “Windows Security Events via AMA” <br/>
 2. Click “Open connector page” <br/>
 3. Click “Create data collection rule” <br/>
@@ -85,7 +87,7 @@ The next step was to go to Content Hub in Microsoft Sentinel and install “Wind
 <br />
 <h2></h2>
 
-<b>Confirmation Honeypot/Client</b>
+### Confirmation Honeypot/Client
 
 The next part was to proceed to Log Analytics Workspace and wait for attackers to start attempting to get inside the VM (`Corporate-US-Net`). I was able to use the query `SecurityEvent | where EventID == 4625` to pull up an attacker’s information, confirming that the honeypot/client machine was working as intended.
 
@@ -94,7 +96,7 @@ The next part was to proceed to Log Analytics Workspace and wait for attackers t
 <br />
 <h2></h2>
 
-<b>Watchlist Configuration</b>
+### Watchlist Configuration
 
 The next phase was to head over to Microsoft Sentinel and create a Watchlist using Josh Madakor’s GeographicIP file, which allowed geographic filtering in the log repository.
 
@@ -110,7 +112,7 @@ The following picture showed the addition of the Watchlist configuration in my l
 <br />
 <h2></h2>
 
-<b>Sentinel Workbook Mapping</b>
+### Sentinel Workbook Mapping
 
 The next step was creating the “Workbooks”, which was used to geographically map out where the attacks were coming from. From the displayed picture, I was able to get the locations of several attackers from several different areas.
 
@@ -119,7 +121,7 @@ The next step was creating the “Workbooks”, which was used to geographically
 <br />
 <h2></h2>
 
-<b>Active Directory & Domain Controller</b>
+### Active Directory & Domain Controller
 
 Subsequently, I provisioned another virtual machine (`DcCorporate`) using Windows Server 2025 to act as a domain controller for the honeypot/client machine, simulating a real-world enterprise environment.
 
@@ -128,10 +130,11 @@ Subsequently, I provisioned another virtual machine (`DcCorporate`) using Window
 <br />
 <h2></h2>
 
-<b>Before:</b> Directly following the deployment of the DC virtual machine, I installed Active Directory Domain Services (AD DS) and promoted the VM to a domain controller.
+**Before:** Directly following the deployment of the DC virtual machine, I installed Active Directory Domain Services (AD DS) and promoted the VM to a domain controller.
 
 <img width="2560" height="1440" alt="12th" src="https://github.com/user-attachments/assets/fcd9214a-9145-46ff-83d9-db6e2b58d17b" />
-<b>After:</b> I then provisioned a user in an Organizational Unit to later log into (`Corporate-US-Net`), replicating a real-world user and honeypot environment at the same time. 
+
+**After:** I then provisioned a user in an Organizational Unit to later log into "Corporate-US-Net", replicating a real-world user and honeypot environment at the same time. 
 <br />
 <br />
 <h2></h2>
@@ -150,15 +153,16 @@ Upon completing the communication phase, I logged into the honeypot/client VM to
 <br />
 <h2></h2>
 
-<b>Honeypot Account & Access Configuration</b>
+### Honeypot Account & Access Configuration
 
 To troubleshoot login and log visibility for the new AD account (`dccorp\Clienthoney`) on `Corporate-US-Net`, I added it to the Event Log Readers group, cleared cached Kerberos tickets, and re-enabled the RDP firewall rule.
+
 <img width="2560" height="1440" alt="15th" src="https://github.com/user-attachments/assets/54c57280-fa3e-4748-b0fe-67991b702038" />
 <br />
 <br />
 <h2></h2>
 
-<b>Attack Simulation VM Deployment</b>
+### Attack Simulation VM Deployment
 
 The following phase of the project involved creating another virtual machine (`attack123`) using Ubuntu Server to simulate a real-world attack from Canada East (Quebec).
 
@@ -167,7 +171,7 @@ The following phase of the project involved creating another virtual machine (`a
 <br />
 <h2></h2>
 
-<b>Hydra Installation</b>
+### Hydra Installation
 
 After deploying the attacking machine, I connected to it via SSH using the created credentials and installed Hydra – a tool that would enable brute-force login attempts, triggering Event ID 4625 on the target machine.
 
@@ -176,7 +180,7 @@ After deploying the attacking machine, I connected to it via SSH using the creat
 <br />
 <h2></h2>
 
-<b>Incident Rules</b>
+### Incident Rules
 
 Before attacking the honeypot/client machine, I created an analytics rule named “Brute Force Attack Detected,” mapped to MITRE ATT&CK’s Credential Access. The rule queried for Event ID 4625, grouped failed logon attempts by account and IP address, and triggered an alert once an account hit 3 or more failures – designed to catch the brute-force attempts I was about to run with Hydra.
 
@@ -185,7 +189,7 @@ Before attacking the honeypot/client machine, I created an analytics rule named 
 <br />
 <h2></h2>
 
-<b>Confirmation One</b>
+### Confirmation One
 
 This step showed the overall attack map, zoomed to the Canada East region (Quebec, Canada). The 29.5K count from New York served as supporting evidence that attacks against the honeypot/client had already been ongoing for some time, prior to the intentional attack launched from `attack123` using Hydra.
 
@@ -194,7 +198,7 @@ This step showed the overall attack map, zoomed to the Canada East region (Quebe
 <br />
 <h2></h2>
 
-<b>Attack Simulation via Hydra</b>
+### Attack Simulation via Hydra
 
 I launched a brute-force attack against the honeypot/client machine (`Corporate-US-Net`) using Hydra, targeting the `Clienthoney` account with a small password list. The attack ran 4 login attempts, all of which failed (0 valid passwords found), generating 4 Event ID 4625 entries and triggering a single alert from the “Brute Force Attack Detected” rule once the failure threshold was met.
 
@@ -203,7 +207,7 @@ I launched a brute-force attack against the honeypot/client machine (`Corporate-
 <br />
 <h2></h2>
 
-<b>Confirmation Two</b>
+### Confirmation Two
 
 The attack from `attack123` was successfully mapped on the geographic IP map (Quebec, Canada), confirming that the attack was correctly detected, logged, and geolocated by the SIEM pipeline.
 
@@ -212,7 +216,7 @@ The attack from `attack123` was successfully mapped on the geographic IP map (Qu
 <br />
 <h2></h2>
 
-<b>Sentinel Detection</b>
+### Sentinel Detection
 
 This step confirmed that the end-to-end pipeline worked as intended: the “Brute Force Attack Detected” incident was created, correctly tied to the `Clienthoney` account, and the incident graph visually mapped the connection back to the source IP (20.175.114.187) – the `attack123` VM.
 
@@ -221,7 +225,7 @@ This step confirmed that the end-to-end pipeline worked as intended: the “Brut
 <br />
 <h2></h2>
 
-<b>Incident Response</b>
+### Incident Response
 
 Directly following the incident alert, I responded by creating a new inbound rule blocking the attacker’s IP address (`20.175.114.187`, the `attack123` VM).
 
