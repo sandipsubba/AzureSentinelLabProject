@@ -13,13 +13,19 @@ This project demonstrates end-to-end Security Information and Event Management (
 
 <h2>Languages and Utilities Used</h2>
 
-- <b>PowerShell</b> 
-- <b>Active Directory Module</b>
+- <b>Kusto Query Language (KQL)</b>
+- <b>PowerShell</b>
+- <b>Bash/Linux CLI</b>
+- <b>Hydra</b>
+- <b>Active Directory Domain Services (AD DS)</b>
 
-<h2>Environments Used </h2>
+<h2>Environments & Platforms Used </h2>
 
-- <b>Windows2022Server</b>
-- <b>Windows 11</b> (25H2)
+- <b>Microsoft Sentinel & Log Analytics Workspace</b>
+- <b>Microsoft Azure</b>
+- <b>Windows Server 2025</b>
+- <b>Windows 11 Pro</b> (25H2)
+- <b>Ubuntu Server 24.04 LTS</b>
 <h2>Program walk-through:</h2>
 
 <p align="left">
